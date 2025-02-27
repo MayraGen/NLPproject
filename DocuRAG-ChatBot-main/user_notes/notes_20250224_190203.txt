@@ -1,0 +1,29 @@
+Note saved at 19:01:
+The term "baselines" in the context of a PDF can refer to two primary concepts, depending on the user's intent:
+
+### 1. **Typographical Baselines**  
+These are the invisible lines on which text characters rest. Extracting baseline data (e.g., coordinates for text alignment) requires parsing the PDF's internal structure.  
+- **Tools/Methods**:  
+  - Use libraries like `PyMuPDF` (Python) to extract text with positional metadata.  
+  - Example code snippet:  
+    ```python
+    import fitz  # PyMuPDF
+    doc = fitz.open("example.pdf")
+    page = doc[0]
+    blocks = page.get_text("dict")["blocks"]
+    for block in blocks:
+        for line in block["lines"]:
+            baseline_coords = line["bbox"]  # Bounding box includes baseline info
+            print(f"Baseline coordinates: {baseline_coords}")
+    ```
+
+### 2. **PDF Structure Baselines**  
+This refers to the foundational components of a PDF file, such as:  
+- **Objects**: The building blocks (text, images, fonts).  
+- **Content Streams**: Instructions for rendering pages.  
+- **Metadata**: Titles, authors, and creation dates.  
+- **File Structure**: Header, body, cross-reference table, and trailer.  
+
+### Key Notes:  
+- Without access to the specific PDF, exact baselines cannot be determined.
+

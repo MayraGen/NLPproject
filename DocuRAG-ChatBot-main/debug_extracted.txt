@@ -1,0 +1,539 @@
+
+PAGE 1:
+NLP and Text Mining (TLFT)
+Introduction
+Yannis Haralambous, Gábor Bella
+IMT Atlantique
+7 February 2024
+
+
+PAGE 2:
+What is Natural Language Processing?
+• Language: a structured system of communication consisting of sounds, 
+written signs, or gestures.
+• Natural language: a language that has evolved naturally in humans
+through use and repetition without conscious planning or premeditation.
+• Computational linguistics: an interdisciplinary field between linguistics
+and computer science. It includes:
+• computer-aided linguistics (practiced by linguists):
+the study of languages using computers;
+• natural language processing, NLP (practiced by engineers and computer scientists):
+allow the computer solve problems on data expressed in natural language.
+
+
+PAGE 3:
+Why NLP?
+Natural language
+Formal language
+No need for NLP.
+We use data structures, markup, logic. No need for NLP.
+
+
+PAGE 4:
+Why NLP?
+Natural Language Understanding
+Natural Language Generation
+GOAL: process automatically data expressed by humans in natural language.
+EXAMPLES: speech and handwriting recognition, information extraction,
+information retrieval, sentiment analysis, etc.
+GOAL: explain formal data via natural language, to humans.
+EXAMPLES: report generation, speech synthesis, etc.
+Understanding
+GOAL: human-to-computer or facilitated human-to-human communication.
+EXAMPLES: chatbot, end-to-end dialogue systems (call centre), machine translation, 
+automated summarisation, automated subtitles, etc.
+Generation
+
+
+PAGE 5:
+Uses of NLP in Data Science
+Domain knowledge 
+expressed as labels within a graph
+Documents: raw text, HTML pages, PDF, etc.
+Tabular or tree-structured data containing text
+Social media messages (comments, tweets, etc.)
+
+
+PAGE 6:
+Uses of NLP in Data Science
+Tasks frequently encountered by data scientists:
+• information extraction: extract computer-understandable, 
+non-ambiguous information from NL text;
+• information retrieval: search in large amounts
+of textual data;
+• classification: organise textual data into categories;
+• data-to-text: generate human-readable content
+from structured (formal, semi-formal) data;
+• text summarisation: generate a short textual summary
+for a document.
+NATURAL LANGUAGE 
+UNDERSTANDING
+NATURAL LANGUAGE 
+GENERATION
+
+
+PAGE 7:
+Why is NLP Hard? Some Reasons
+The form–meaning relationship is complex
+Polysemy: letter means a written message or a person letting a flat.
+Synonymy: letter and mail mean the same thing.
+Meaning is context-dependent
+There are no letters in the mailbox: meaning is clear from context.
+The man couldn’t lift his son because he was so weak.
+The man couldn’t lift his son because he was so heavy.
+To whom is the pronoun ‘he’ referring in the sentence above?
+Meaning is not always predictable from components
+hot dog ≠ hot + dog
+Grammar is not always regular
+by car, by boat, by plane, by train, on foot
+Meaning is diffuse across all aspects of natural language
+– individual morpheme: kill (a person, time, etc.);
+– word structure: kill+ed;
+– word order: the lion killed the man / the man killed the lion; 
+– discourse context: a tough question from the public killed him.
+Specialised languages: specific terminologies and grammars
+D-Cure 25.000 U 1 amp / 2 sem
+Over 7,000 languages in the world, plus dialects, styles, etc.
+
+
+PAGE 8:
+History: NLP in Ancient Times
+• Initial motivation: machine translation
+• Context: cold war and globalisation;
+• the discipline of AI comes into being around 1956,
+the perceptron is invented and studied;
+• generous funding from the US government;
+• first results on a couple hundred sentences,
+limited to specific domains.
+• Two opposing philosophies: rationalism et empiricism.
+• The AI Winter (1960-80)
+• the ALPAC report (1964): negative outlook => state funding
+is reduced;
+• computational power cannot keep up with theoretical ideas;
+• oil crisis…;
+• knowledge-based rationalism was a reasonable path,
+empiricistic approaches were ahead of their time,
+they could not be tested in practice.
+Probabilistic models 
+give no insight into the basic 
+problems of syntactic structure!
+Every time we fire
+a linguist, the performance
+of our system goes up!
+Noam Chomsky, Syntactic Structures (2002), p. 17.
+Frederick Jellinek (father of speech recognition), 1985.
+
+
+PAGE 9:
+History
+Rationalism and structuralism: symbolic approaches
+• Ferdinand de Saussure (Swiss linguist, philosopher of language):
+parole (particular, irregular) ↔langue (shared, structured).
+• Structuralism: language has an internal structure with basic constituents and composition 
+rules (compositionality): the meaning of a complex expression depends on the meaning 
+of its constituents and its structure, e.g. green apples = green + apple + s.
+• Noam Chomsky: hypothesis of an abstract universal grammar and of a mechanism
+within the human brain dedicated to linguistic capacity (theory partially confirmed 
+by neuroscience and experimentation on humans and animals).
+• Still Chomsky: formal languages, generative grammars => the analysis of language 
+can be automated, provided that we have a detailed formal description of the grammar.
+
+
+PAGE 10:
+History
+Empiricism and holism: statistical approaches and machine learning
+• A “statistician’s vision” of language that makes regularity emerge from practices: corpora. 
+Any a priori knowledge of language is ignored, the computer learns from a tabula rasa.
+(See also: behaviourism vs innatism.)
+• It is context (and not structure) that plays the primary role in building meaning.
+Context is derived from the corpus.
+• Performance hinges on corpus size => need for massive corpora and high computational power.
+• Artificial neural networks have been researched since the 50s (perceptron, 1958).
+Deep neural networks since the 60s. However, the necessary processing power has only been 
+available since the 2000s–2010s.
+
+
+PAGE 11:
+The Structuralist Approach
+Pragmatics
+Semantics
+Syntax
+Morphology
+Phonemics / Graphemics
+Morphemes (units of meaning) and their composition:
+inflection, derivation, compounding.
+Phonemes (smallest units of speech),
+graphemes (smallest units of writing).
+The grammatical structure of phrases.
+Building meaning on the phrase, sentence, or discourse level.
+Understanding the overall meaning of a discourse
+beyond individual sentences, within its extra-linguistic context.
+Spoken language / written language
+
+
+PAGE 12:
+Example: a Classic NLP Pipeline
+ProfNC .PUNCT DupontNP crossedV_PP the DET squareNC . PUNCT
+Prof  .  Dupont  crossed the  square  . | Suddenly he fell .
+Prof. Dupont crossed the square. Suddenly he fell.
+Prof. Dupont crossed the square. | Suddenly he fell.
+ProfNC .PUNCT DupontNP (cross + ed)V_PP the DET squareNC . PUNCT
+Sentence 
+splitting
+Tokenisation
+Part-of-speech 
+tagging
+Lemma-
+tisation
+Syntactic
+Analysis
+Word Sense
+Disambiguation
+S
+NP
+VP
+NP
+V
+NC
+ART
+NC
+NPR
+crossed
+Prof
+the
+square
+Dupont
+cross (verb)
+1. travel across or pass over
+2. hinder or prevent
+3. breed animals or plants
+using parents of different races
+square (common noun)
+1. a plane rectangle with four equal sides 
+and four right angles
+2. the product of two equal terms
+3. an open area at the meeting of two
+or more streets
+Discourse
+Disambiguation
+∃𝒙,y : professor𝟏(Dupont) ∧square𝟑(𝒙) ∧cross𝟏(Dupont, 𝒙) ∧fall𝟐(y)
+prof, professor (common noun)
+1. someone who is a member
+of the faculty at a college
+or university
+∃𝒙: professor𝟏(Dupont) ∧square𝟑(𝒙) ∧cross𝟏(Dupont, 𝒙) ∧fall𝟐(Dupont)
+Anaphora
+Resolution
+
+
+PAGE 13:
+The Strengths of a Structuralist Approach to NLP
+• Due to compositionality, a very complex task is decomposed into manageable subtasks,
+with a gradual transition from an informal towards a formal representation;
+• results from linguistics can help engineers, prior knowledge is reused;
+• each subtask is well understood by us humans: explainability;
+in principle, the same process can be played backwards!
+(e.g. in another language for machine translation)
+Natural language understanding
+Natural language generation
+Pragmatics
+Semantics
+Syntax
+Morphology
+Phonemics/GraphemicsAnalysisSynthesis
+
+
+PAGE 14:
+The Limits of Structuralism
+• Even subtasks remain hard.
+I talked to prof. Dupont. He was helpful.
+I talked to prof. | Dupont. | He was helpful.
+I talked to prof. Dupont. | He was helpful.
+I talked to the prof. He was helpful.
+SENTENCE SPLITTING RULES
+1. DOT+SPACE+UPPERCASE => new sentence.
+2. Except if preceded by “prof”.
+3. ???!!! 
+• A single mistake upstream in the pipeline affects all downstream tasks.
+• A sentence contains 20 words on average. A single erroneously parsed word can corrupt 
+the analysis of the entire sentence.
+• In natural language, exceptions and irregularity are pervasive.
+• An exhaustive analysis is not always necessary, for example to decide
+whether an email is spam or in which language a piece of text was written.
+• Solutions do not generalise well across languages, domains, registers, etc.
+
+
+PAGE 15:
+Some Widely Used Symbolic NLP Resources
+• Morphology: dictionaries on word structures
+• UniMorph (inflexions, 169 langues) : https://github.com/unimorph/
+• MorphyNet (dérivations + inflexions, 15 langues) : https://github.com/kbatsuren/MorphyNet
+• Lexical semantics: lexicons of the world’s languages, including word meanings
+and other semantic relationships:
+• WordNet: http://wordnet.princeton.edu: more than 100k English words, expert-curated;
+• Universal Knowledge Core: http://ukc.datascientia.eu : interlinked lexicons
+of >2000 languages (of varying coverage).
+• Syntax: treebanks, i.e. richly (morphology+syntax) annotated corpora:
+• Penn Treebank: for English;
+• Universal Dependencies: cross-lingual treebanks of >100 languages,
+using shared linguistic features.
+
+
+PAGE 16:
+Corpus-Based Statistical Methods
+• Statistical (and neural) methods obtain linguistic knowledge inductively, from corpora.
+• Requirements:
+• large corpora (thousands, millions, or billions of sentences);
+• sufficient computational power;
+• before the Internet (2000s), Wikipedia, etc., large corpora were hard to obtain.
+• Corpus engineering:
+• preprocessing: preparing the corpus for the downstream task:
+filtering, simplifications, sentence and token segmentation, etc.;
+• annotation: (typically manual) extension of the corpus by linguistic information,
+serving as ground truth for subsequent supervised learning.
+PREPROCESSING
+ANNOTATION
+RAW CORPUS
+ANNOTATED 
+CORPUS
+PREPROCESSED 
+CORPUS
+
+
+PAGE 17:
+TRAINING
+A Typical Supervised-Learning-Based NLP Component
+FEATURE 
+EXTRACTION
+ML 
+Component
+ANNOTATED
+CORPUS
+RAW 
+CORPUS
+PREPROC. &
+ANNOTATION
+FEATURES LABEL
+FEATURES LABEL
+FEATURES LABEL
+TRAINED
+MODEL
+RAW INPUT
+Prof. Dupont 
+crossed the 
+square.
+LABELS
+B-PER
+I-PER
+I-PER
+0
+0
+0
+0
+FEATURE 
+EXTRACTION
+ML 
+Component
+FEATURES
+PREPROCESSED 
+INPUT
+RAW
+INPUT
+PRE-
+PROCESSING
+PREDICTION
+(LABELS)
+PREDICTION
+Token
+Splitting
+Capitalisation 
+extraction,
+POS tagging
+Named Entity
+Recognition
+EXAMPLE: FINDING NAMES (NAMED ENTITY RECOGNITION)
+PREPROC. INPUT
+Prof|.|Dupont 
+|crossed|the
+|square|.
+FEATURES
+TOKEN   POS
+Prof
+NC
+.
+PUNCT
+Dupont  NNP
+crossed VPP
+the     PUNCT
+square  NC
+.       PUNCT
+
+
+PAGE 18:
+Advantages and Limitations of Statistical ML Methods
+• Generalisation: supervised ML components in NLP pipelines are more robust 
+and generalise better to unseen data => overall pipeline performance is higher.
+• Cross-domain and cross-lingual transfer: applying trained models to different domains, 
+different languages, different styles, etc. usually results in significant performance drop. 
+Retraining is often necessary.
+• Human effort: rule design is replaced by human corpus annotation:
+still labour-intensive, but less error-prone, less sensitive to mistakes, and less technical.
+• Feature engineering: the selection of optimal features is a non-trivial empirical problem.
+• Pipeline effect: ML-based pipelines still suffer from cumulative errors.
+
+
+PAGE 19:
+Deep Neural NLP
+Layer ≈ pipeline component
+Weights & biases ≈ feature selection
+• Pre-training is fully automated (“self-supervised”).
+• Supervision is still needed for fine-tuning, but a much smaller corpus achieves the same 
+(or better) result as in statistical methods.
+SELF-SUPERVISED
+PRE-TRAINING
+SUPERVISED
+FINE-TUNING
+PREPROCESSED
+CORPUS
+LARGE, RAW, 
+GENERAL 
+CORPUS
+PRE-
+PROCESSING
+MODEL 
+FINE-TUNED
+TO TASK
+GENERIC
+LANGUAGE MODEL
+RAW CORPUS
+(TASK-SPECIFIC)
+ANNOTATED
+CORPUS
+PREPROC. & 
+ANNOTATION
+PREDICTION
+PREPROCESSED
+INPUT
+RAW
+INPUT
+PRE-
+PROCESSING
+TASK-INDEPENDENT PRE-TRAINING
+TASK-SPECIFIC FINE-TUNING
+PREDICTION
+A DNN can replace an entire NLP pipeline. 
+
+
+PAGE 20:
+Large Language Models
+• Two key novelties:
+• much larger training corpora;
+• an entirely NL-based training.
+• A breakthrough in general problem solving ability
+as never before in the history of NLP.
+• Revolution in the engineering process:
+• no need to understand how the model works;
+• no tuning, no formalisation: the model understands
+NL requests (in multiple languages)
+and can answer in natural or formal language;
+• prompt engineering: find the best-performing prompt
+(magic formula) through trial and error;
+• training is always done by a third party (a big tech company).
+Magic 
+formula
+Wish
+fulfilled
+(or not)
+SELF-SUPERVISED
+PRE-TRAINING
+PREDICTION
+PREPROCESSED
+CORPUS
+VERY LARGE 
+UNLABELLED 
+CORPUS
+PRE-
+PROCESSING
+NL REQUEST
+(PROMPT)
+NL ANSWER
+PROMPT-BASED
+MULTI-TASK
+FINE-TUNING
+LLM
+
+
+PAGE 21:
+NLP Paradigm Shifts
+Tendencies:
+• increase in generalisation ability (solve new tasks, on new input);
+• reduction of expert input needed;
+• reduction of NLP pipeline length;
+• increase in training corpus size (languages without large online corpora are left out);
+• increase in computational power needed;
+• decrease in explainability (why did I get this result?);
+• decrease in controllability (how can I fix this result?);
+• decrease in ownership (both legal and physical).
+KNOWLEDGE-BASED
+(until 1990s) 
+STATISTICAL
+(until 2010s)
+DEEP NEURAL
+(early 2010s)
+LLM
+(early 2020s)
+CORPUS-BASED:
+
+
+PAGE 22:
+What type of Solution to Use
+•
+LLMs are extremely powerful but they are costly and are most often not under your control.
+•
+They are an overkill for many NLP tasks.
+•
+Quiz: can you guess the complexity of these tasks? 
+Choose the simplest paradigm that can provide a robust solution.
+Task
+Knowl.-based
+Statistical
+Neural
+LLM
+Translate a text from English to French
+Provide possible meanings for a word
+Find all person names in a text
+Find phone numbers, web pages, and email addresses
+Split a piece of text into words
+Predict the language in which a text is written
+Reformulate a weather report into a poem
+Classify or cluster documents according to their subject
+Answer a natural-language question on any topic
++
++   
++   
++   
++   
++   
++    
++   
++   
+
+
+PAGE 23:
+As an engineer or data scientist, you need to:
+• understand the complexity of the language processing problem at hand;
+• know the possible solutions (beyond the magic hat);
+• choose the optimal solution given a set of constraints
+(processing power, access to the Internet, cost limitations, environmental impact, etc.);
+• be able to evaluate your results quantitatively.
+This course will:
+• give you an insight into the complexity of natural language
+through an introduction to linguistics;
+• give you a panorama of NLP paradigms;
+• help you choose the simplest, fastest, most explainable solution 
+that solves your problem accurately and robustly.
+This course will not:
+• tell you which LLM is the best (the field is changing on a daily basis);
+• reduce NLP to using Python libraries and LLMs as black boxes.
+The Philosophy of this Course
+

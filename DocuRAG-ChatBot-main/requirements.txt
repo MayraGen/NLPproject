@@ -1,0 +1,18 @@
+# Core Dependencies
+gradio==4.12.0
+transformers==4.38.2
+torch==2.1.2+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
+sentence-transformers==2.5.1
+pdfplumber==0.11.0
+pymupdf==1.23.21
+python-dotenv==1.0.0pip 
+langdetect==1.0.9
+nltk==3.8.1
+scikit-learn==1.4.0
+matplotlib==3.8.2
+bitsandbytes==0.43.0
+accelerate==0.27.2
+huggingface-hub==0.20.2
+
+# Optional for GPU support (if available)
+torchvision==0.16.2+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
